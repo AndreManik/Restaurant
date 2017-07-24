@@ -3,10 +3,11 @@ package com.javarush.task.task27.task2712;
 import com.javarush.task.task27.task2712.kitchen.Order;
 
 import java.io.IOException;
+import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Tablet {
+public class Tablet extends Observable{
     /* это номер планшета, чтобы можно было однозначно установить,
      * откуда поступил заказ. Номер планшета должен инициализироваться
      * в конструкторе переданным параметром.
@@ -29,13 +30,23 @@ public class Tablet {
     /* будет создавать заказ из тех блюд, которые выберет пользователь
     *  Для этого создадим класс Order, который поместим в пакет kitchen.
     */
-    public void createOrder(){
+    public Order createOrder(){
+        final Order newOrder; //final под вопросом
         try {
-            final Order newOrder = new Order(this);
+            newOrder = new Order(this);
+            ConsoleHelper.writeMessage(newOrder.toString());
+            // сразу после создания заказа и вывода информации о нем в консоль
+            setChanged();
+            notifyObservers(newOrder);
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Console is unavailable.");
-            return;
+            return null;
         }
+
+        if (newOrder != null) {
+            return newOrder;
+        }
+        return null;
     }
 
     /*Также измени метод toString в классе Tablet
