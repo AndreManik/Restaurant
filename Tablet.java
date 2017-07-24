@@ -34,10 +34,12 @@ public class Tablet extends Observable{
         final Order newOrder; //final под вопросом
         try {
             newOrder = new Order(this);
+            if (!newOrder.isEmpty()){
             ConsoleHelper.writeMessage(newOrder.toString());
             // сразу после создания заказа и вывода информации о нем в консоль
             setChanged();
             notifyObservers(newOrder);
+            }
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Console is unavailable.");
             return null;

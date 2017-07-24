@@ -26,4 +26,19 @@ public class Order {
     public String toString() {
         return dishes.isEmpty() ? "" : String.format("Your order: %s of %s", dishes, tablet.toString());
     }
+
+    /*посчитает суммарное время приготовления всех блюд в заказе.*/
+    public int getTotalCookingTime(){
+        int totalTime = 0;
+        for(Dish d : dishes){
+            totalTime += d.getDuration();
+        }
+        return totalTime;
+    }
+
+    //В классе Order создай вспомогательный метод public boolean isEmpty(),
+    // который будет определять, есть ли какие либо блюда в заказе.
+    public boolean isEmpty(){
+        return dishes.isEmpty();
+    }
 }
