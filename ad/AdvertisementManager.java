@@ -25,8 +25,10 @@ public class AdvertisementManager {
     }
 
    /* AdvertisementManager выполняет только одно единственное действие — обрабатывает рекламное видео.*/
-    public void processVideos(){
-        ConsoleHelper.writeMessage("calling processVideos method");
+    public void processVideos() throws NoVideoAvailableException{
+        if (storage.list().isEmpty()){
+            throw new NoVideoAvailableException();
+        }
     }
 
 
