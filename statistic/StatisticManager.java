@@ -1,12 +1,10 @@
 package com.javarush.task.task27.task2712.statistic;
 
+import com.javarush.task.task27.task2712.kitchen.Cook;
 import com.javarush.task.task27.task2712.statistic.event.EventDataRow;
 import com.javarush.task.task27.task2712.statistic.event.EventType;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class StatisticManager {
 
@@ -15,6 +13,9 @@ public class StatisticManager {
     /* Чтобы менеджер мог получить доступ к хранилищу, нужно в классе StatisticManager создать поле statisticStorage типа StatisticStorage.
         Инициализируй его экземпляром класса.*/
     private StatisticStorage statisticStorage = new StatisticStorage();
+
+    //Создай в классе StatisticManager множество (Set) поваров (cooks) и добавь в него повара.
+    private Set<Cook> cooks = new HashSet<>();
 
     private StatisticManager(){}
 
@@ -28,6 +29,10 @@ public class StatisticManager {
     //Метод register с одним параметром типа EventDataRow должен регистрировать полученное событие в statisticStorage.
     public void register(EventDataRow data){
         statisticStorage.put(data);
+    }
+
+    public void register(Cook cook){
+        cooks.add(cook);
     }
 
     /*  Хранилище связано 1 к 1 с менеджером, т.е. один менеджер и одно хранилище на приложение.

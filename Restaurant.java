@@ -18,5 +18,13 @@ public class Restaurant {
 
         tablet.createOrder();
 
+        //Чтобы можно было проверить результат, добавим в метод main создание
+        // директорского планшета и вывод статистики с помощью методов перечисленных выше.
+        DirectorTablet directorTablet = new DirectorTablet();
+        directorTablet.printActiveVideoSet();
+        directorTablet.printAdvertisementProfit();
+        directorTablet.printArchivedVideoSet();
+        directorTablet.printCookWorkloading();
+
     }
 }

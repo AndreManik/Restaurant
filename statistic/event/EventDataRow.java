@@ -1,5 +1,7 @@
 package com.javarush.task.task27.task2712.statistic.event;
 
+import java.util.Date;
+
 public interface EventDataRow {
     /*  1. Внутри StatisticStorage создай метод void put(EventDataRow data).
         2. Чтобы методом put(EventDataRow data) добавить объект data в данные карты, нужен тип события — EventType.
@@ -8,4 +10,6 @@ public interface EventDataRow {
             2.2. Реализуй этот метод в каждом классе-событии: CookedOrderEventDataRow, NoAvailableVideoEventDataRow, VideoSelectedEventDataRow
     */
     EventType getType();
+    Date getDate(); //реализация которого вернет дату создания записи
+    int getTime(); //реализация которого вернет время — продолжительность
 }
