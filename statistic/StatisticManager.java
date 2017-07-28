@@ -25,7 +25,10 @@ public class StatisticManager {
         return statisticManager;
     }
 
-    public void register(EventDataRow data){}
+    //Метод register с одним параметром типа EventDataRow должен регистрировать полученное событие в statisticStorage.
+    public void register(EventDataRow data){
+        statisticStorage.put(data);
+    }
 
     /*  Хранилище связано 1 к 1 с менеджером, т.е. один менеджер и одно хранилище на приложение.
         К хранилищу может доступиться только StatisticManager. Поэтому…
@@ -42,5 +45,9 @@ public class StatisticManager {
             }
         }
 
+        //Сделай так, чтобы к методу void put(EventDataRow data) нельзя было получить доступ за пределами класса StatisticManager.
+        private void put(EventDataRow data){
+            storage.get(data.getType()).add(data);
+        }
     }
 }

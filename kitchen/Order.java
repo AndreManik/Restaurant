@@ -41,4 +41,9 @@ public class Order {
     public boolean isEmpty(){
         return dishes.isEmpty();
     }
+
+    //Добавь геттер для поля dishes в класс Order, используйте его при создании события.
+    public List<Dish> getDishes() {
+        return dishes;
+    }
 }

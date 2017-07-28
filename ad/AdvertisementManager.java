@@ -6,6 +6,9 @@ package com.javarush.task.task27.task2712.ad;
 //Он также будет взаимодействовать с плеером и отображать ролики.
 
 import com.javarush.task.task27.task2712.ConsoleHelper;
+import com.javarush.task.task27.task2712.statistic.StatisticManager;
+import com.javarush.task.task27.task2712.statistic.event.NoAvailableVideoEventDataRow;
+import com.javarush.task.task27.task2712.statistic.event.VideoSelectedEventDataRow;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,7 +36,8 @@ public class AdvertisementManager {
     public void processVideos() throws NoVideoAvailableException{
         if (storage.list().isEmpty()){
                    /* регистрируем событие, видео не выбрано*/
-
+            NoAvailableVideoEventDataRow noAvailableVideoEventDataRow = new NoAvailableVideoEventDataRow(timeSeconds);
+            StatisticManager.getInstance().register(noAvailableVideoEventDataRow);
             throw new NoVideoAvailableException();
         }
 
@@ -59,6 +63,10 @@ public class AdvertisementManager {
             totalDuration += a.getDuration();
         }
 
+        //Зарегистрируй событие «видео выбрано» перед отображением рекламы пользователю.
+
+        VideoSelectedEventDataRow videoSelectedEventDataRow = new VideoSelectedEventDataRow(best, totalAmount, totalDuration);
+        StatisticManager.getInstance().register(videoSelectedEventDataRow);
 
         for (Advertisement b : best){
 
@@ -69,7 +77,6 @@ public class AdvertisementManager {
 
 
     //подобрать список видео из доступных, просмотр которых обеспечивает максимальную выгоду
-
     //составить список из рекламных роликов не выходящих за продолжительность приготовления пищи
     private List<Advertisement> getRelevantList(){
         List<Advertisement> relevantList = new ArrayList<>();
